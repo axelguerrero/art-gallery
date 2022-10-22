@@ -7,6 +7,12 @@ import './App.css';
 function App() {
   let [artId, setArtId] = useState(12720)
   let [data, setData] = useState({})
+  
+  const handleIterate = (e) => {
+    setArtId(artId + Number(e.target.value))
+  }
+  
+
   useEffect(() => {
     document.title="Welcome to the Gallery"
     fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${artId}`)
@@ -16,8 +22,11 @@ function App() {
   return (
     <div className="App">
      Hello
-    <Gallery/>
-    <ButtonBar/>
+    <Gallery artist={data.artistDisplayName}
+             objectImg={data.primaryImageSmall}
+            title={data.title}
+    />
+    <ButtonBar handleIterate={handleIterate}/>
     </div>
   );
 }
